@@ -1,4 +1,5 @@
 using HotelApi.Data;
+using HotelApi.Repository.Booking;
 using HotelApi.Repository.Customer;
 using HotelApi.Repository.HotelAdminRepo;
 using HotelApi.Repository.HotelDetail;
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<OwnerContext>(optionsAction: options => options.Us
 builder.Services.AddScoped<IAdmins,AdminService>(); 
 builder.Services.AddScoped<ICustomer,CustomerService>();
 builder.Services.AddScoped<IHoteldetails,HoteldetailService>();
+builder.Services.AddScoped<IBooking,BookingService>();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling =
