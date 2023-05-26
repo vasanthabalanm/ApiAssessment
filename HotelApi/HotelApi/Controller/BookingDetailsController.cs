@@ -9,11 +9,13 @@ using HotelApi.Data;
 using HotelApi.Model;
 using HotelApi.Repository.Booking;
 using HotelApi.Repository.HotelDetail;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles ="staff")]
     public class BookingDetailsController : ControllerBase
     {
         private readonly IBooking _context;

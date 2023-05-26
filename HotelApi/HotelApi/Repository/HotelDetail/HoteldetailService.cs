@@ -59,13 +59,14 @@ namespace HotelApi.Repository.HotelDetail
             await _context.SaveChangesAsync();
             return "Deleted done";
         }
-        /*public async Task<ActionResult<HotelDetails>> GetHotelLocationDetails(int price)
+       public async Task<List<HotelDetails>> GetHotelLocationDetails(int price)
         {
-            var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelRoomPrice <= price);
+            /* var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelRoomPrice <= price);
 
-            return getdt.HotelLocation;
-
-        }*/
+             return getdt.HotelLocation;*/
+            var locat = await(from Getlocate in _context.HotelDetails where Getlocate.HotelRoomPrice < price select Getlocate).ToListAsync();
+            return locat;
+        }
 
     }
 }

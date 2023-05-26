@@ -100,13 +100,24 @@ namespace HotelApi.Controller
             }
         }
        
-        /*        
+                
         //to view the location of the hotel
         [HttpGet("{price}")]
-        public async Task<ActionResult<HotelDetails>> GetHotelLocationDetails(int price)
+        public async Task<ActionResult<List<HotelDetails>>> GetHotelLocationDetails(int price)
         {
-            
-        }*/
+            try
+            {
+                var getdt = await _context.DeleteHotelDetails(price);
+
+
+                return Ok(getdt);
+            }
+            catch (ArithmeticException ex)
+            {
+                return NotFound(ex.Message);
+
+            }
+        }
 
     }
 }

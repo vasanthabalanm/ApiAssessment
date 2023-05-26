@@ -9,11 +9,13 @@ using HotelApi.Data;
 using HotelApi.Model;
 using HotelApi.Repository.Customer;
 using HotelApi.Repository.HotelDetail;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize (Roles ="staff")]
     public class CustomerDetailsController : ControllerBase
     {
         private readonly ICustomer _context;
