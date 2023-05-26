@@ -98,10 +98,15 @@ namespace HotelApi.Controller
                 return NotFound(ex.Message);
 
             }
-            
-
         }
+       
+        /*        
+        //to view the location of the hotel
+        [HttpGet("{price}")]
+        public async Task<ActionResult<HotelDetails>> GetHotelLocationDetails(int price)
+        {
+            
+        }*/
 
-        
     }
 }

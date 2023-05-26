@@ -55,9 +55,17 @@ namespace HotelApi.Repository.HotelDetail
         public async Task<string> DeleteHotelDetails(int id)
         {
             var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelId == id);
-            _context.Remove(getdt);
+             _context.Remove(getdt);
             await _context.SaveChangesAsync();
             return "Deleted done";
         }
+        /*public async Task<ActionResult<HotelDetails>> GetHotelLocationDetails(int price)
+        {
+            var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelRoomPrice <= price);
+
+            return getdt.HotelLocation;
+
+        }*/
+
     }
 }
