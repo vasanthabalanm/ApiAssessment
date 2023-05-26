@@ -10,7 +10,8 @@ namespace HotelApi.Model
         public int CustomerId { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public string CustomerEmail { get; set; } = string.Empty;
-        public Int128 CustomerPhone { get; set; }
+        [Phone]
+        public string? CustomerPhone { get; set; }
         public string CustomerCity { get; set; } = string.Empty;
 
         public int CustomerCount { get; set; }

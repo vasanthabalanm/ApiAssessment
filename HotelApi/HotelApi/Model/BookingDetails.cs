@@ -8,9 +8,6 @@ namespace HotelApi.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int BookingId { get; set; }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RoomId { get; set; }
 
         [ForeignKey("CustomerDetails")]
