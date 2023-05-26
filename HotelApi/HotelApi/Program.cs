@@ -1,4 +1,5 @@
 using HotelApi.Data;
+using HotelApi.Repository.Customer;
 using HotelApi.Repository.HotelAdminRepo;
 using HotelApi.Repository.HotelDetail;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<HotelContext>(optionsAction: options => options.UseSqlServer(builder.Configuration.GetConnectionString(name: "HotelApi")));
 builder.Services.AddDbContext<OwnerContext>(optionsAction: options => options.UseSqlServer(builder.Configuration.GetConnectionString(name: "Owner")));
 builder.Services.AddScoped<IAdmins,AdminService>(); 
-
+builder.Services.AddScoped<ICustomer,CustomerService>();
 builder.Services.AddScoped<IHoteldetails,HoteldetailService>();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {

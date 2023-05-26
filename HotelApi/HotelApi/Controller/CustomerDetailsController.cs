@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelApi.Data;
 using HotelApi.Model;
+using HotelApi.Repository.Customer;
+using HotelApi.Repository.HotelDetail;
 
 namespace HotelApi.Controller
 {
@@ -14,9 +16,9 @@ namespace HotelApi.Controller
     [ApiController]
     public class CustomerDetailsController : ControllerBase
     {
-        private readonly HotelContext _context;
+        private readonly ICustomer _context;
 
-        public CustomerDetailsController(HotelContext context)
+        public CustomerDetailsController(ICustomer context)
         {
             _context = context;
         }
@@ -25,29 +27,23 @@ namespace HotelApi.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDetails>>> GetCustomerDetails()
         {
-          if (_context.CustomerDetails == null)
-          {
-              return NotFound();
-          }
-            return await _context.CustomerDetails.ToListAsync();
+            return await _context.GetCustomerDetails();
         }
 
         // GET: api/CustomerDetails/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDetails>> GetCustomerDetails(int id)
         {
-          if (_context.CustomerDetails == null)
-          {
-              return NotFound();
-          }
-            var customerDetails = await _context.CustomerDetails.FindAsync(id);
-
-            if (customerDetails == null)
+            try
             {
-                return NotFound();
+                var getdt = await _context.GetCustomerDetails(id);
+                return Ok(getdt);
             }
+            catch (ArithmeticException ex)
+            {
+                return NotFound(ex.Message);
 
-            return customerDetails;
+            }
         }
 
         // PUT: api/CustomerDetails/5
@@ -55,30 +51,16 @@ namespace HotelApi.Controller
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomerDetails(int id, CustomerDetails customerDetails)
         {
-            if (id != customerDetails.CustomerId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(customerDetails).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var getdt = await _context.PutCustomerDetails(id, customerDetails);
+                return Ok(getdt);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (ArithmeticException ex)
             {
-                if (!CustomerDetailsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return NotFound(ex.Message);
 
-            return NoContent();
+            }
         }
 
         // POST: api/CustomerDetails
@@ -86,53 +68,34 @@ namespace HotelApi.Controller
         [HttpPost]
         public async Task<ActionResult<CustomerDetails>> PostCustomerDetails(CustomerDetails customerDetails)
         {
-          if (_context.CustomerDetails == null)
-          {
-              return Problem("Entity set 'HotelContext.CustomerDetails'  is null.");
-          }
-            _context.CustomerDetails.Add(customerDetails);
             try
             {
-                await _context.SaveChangesAsync();
+                var getdt = await _context.PostCustomerDetails(customerDetails);
+                return Ok(getdt);
             }
-            catch (DbUpdateException)
+            catch (ArithmeticException ex)
             {
-                if (CustomerDetailsExists(customerDetails.CustomerId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                return NotFound(ex.Message);
 
-            return CreatedAtAction("GetCustomerDetails", new { id = customerDetails.CustomerId }, customerDetails);
+            }
         }
 
         // DELETE: api/CustomerDetails/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomerDetails(int id)
         {
-            if (_context.CustomerDetails == null)
+            try
             {
-                return NotFound();
+                var getdt = await _context.DeleteCustomerDetails(id);
+
+
+                return Ok(getdt);
             }
-            var customerDetails = await _context.CustomerDetails.FindAsync(id);
-            if (customerDetails == null)
+            catch (ArithmeticException ex)
             {
-                return NotFound();
+                return NotFound(ex.Message);
+
             }
-
-            _context.CustomerDetails.Remove(customerDetails);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CustomerDetailsExists(int id)
-        {
-            return (_context.CustomerDetails?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }
     }
 }
