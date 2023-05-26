@@ -17,6 +17,5 @@ namespace HotelApi.Model
         public int CustomerId { get; set; }
 
         //Navigation Property
-        public ICollection<CustomerDetails>? customerDetails { get; set; }
     }
 }

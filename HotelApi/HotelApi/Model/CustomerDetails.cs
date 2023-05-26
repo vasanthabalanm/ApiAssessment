@@ -15,7 +15,7 @@ namespace HotelApi.Model
 
         public int CustomerCount { get; set; }
         //navigation to bookingdetails
-        public BookingDetails? Bookings { get; set; }
+        public ICollection<BookingDetails>? Bookings { get; set; }
 
         
 
