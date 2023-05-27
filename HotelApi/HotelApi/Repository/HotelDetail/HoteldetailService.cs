@@ -59,14 +59,34 @@ namespace HotelApi.Repository.HotelDetail
             await _context.SaveChangesAsync();
             return "Deleted done";
         }
-       public async Task<List<HotelDetails>> GetHotelLocationDetails(int price)
-        {
-            /* var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelRoomPrice <= price);
+        /*public async Task<List<HotelDetails>> GetHotelLocationDetails(int price)
+         {
+             /* var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelRoomPrice <= price);
 
-             return getdt.HotelLocation;*/
-            var locat = await(from Getlocate in _context.HotelDetails where Getlocate.HotelRoomPrice < price select Getlocate).ToListAsync();
-            return locat;
+              return getdt.HotelLocation;
+             var locat = await(from Getlocate in _context.HotelDetails where Getlocate.HotelRoomPrice < price select Getlocate).ToListAsync();
+             return locat;
+
+
+         }*/
+        public async Task<List<HotelDetails>> FilterHotels(string location, decimal minPrice, decimal maxPrice)
+        {
+            var query = _context.HotelDetails.AsQueryable();
+
+            // Apply filters based on criteria
+            if (!string.IsNullOrEmpty(location))
+                query = query.Where(h => h.HotelLocation == location);
+
+            if (minPrice >= 0)
+                query = query.Where(h => h.HotelRoomPrice >= minPrice);
+
+            if (maxPrice > minPrice)
+                query = query.Where(h => h.HotelRoomPrice <= maxPrice);
+
+            // Execute the query asynchronously and return the filtered hotels
+            return await query.ToListAsync();
         }
+
 
     }
 }

@@ -99,8 +99,8 @@ namespace HotelApi.Controller
 
             }
         }
-       
-                
+
+        /*        
         //to view the location of the hotel
         [HttpGet("{price}")]
         public async Task<ActionResult<List<HotelDetails>>> GetHotelLocationDetails(int price)
@@ -117,6 +117,12 @@ namespace HotelApi.Controller
                 return NotFound(ex.Message);
 
             }
+        }*/
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterHotels([FromQuery] string location, [FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
+        {
+            var filteredHotels =await  _context.FilterHotels(location,minPrice,maxPrice);
+            return Ok(filteredHotels);
         }
 
     }
