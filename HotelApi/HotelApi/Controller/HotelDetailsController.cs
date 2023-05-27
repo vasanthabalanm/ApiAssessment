@@ -124,6 +124,14 @@ namespace HotelApi.Controller
             var filteredHotels =await  _context.FilterHotels(location,minPrice,maxPrice);
             return Ok(filteredHotels);
         }
+        [HttpGet("{hotelId}/count")]
+        public async Task<IActionResult> GetAvailableRoomCount(int hotelId)
+        {
+            var availableRoomCount = await _context.GetAvailableRoomCountAsync(hotelId);
+            return Ok(availableRoomCount);
+        }
+
+
 
     }
 }

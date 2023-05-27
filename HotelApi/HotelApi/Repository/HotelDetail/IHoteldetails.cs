@@ -12,5 +12,6 @@ namespace HotelApi.Repository.HotelDetail
         Task<string> DeleteHotelDetails(int id);
         //Task<List<HotelDetails>> GetHotelLocationDetails(int price);
         Task<List<HotelDetails>> FilterHotels(string location, decimal minPrice, decimal maxPrice);
+        Task<int> GetAvailableRoomCountAsync(int hotelId);
     }
 }

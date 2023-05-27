@@ -2,6 +2,7 @@
 using HotelApi.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OpenQA.Selenium;
 
 namespace HotelApi.Repository.HotelDetail
 {
@@ -86,6 +87,21 @@ namespace HotelApi.Repository.HotelDetail
             // Execute the query asynchronously and return the filtered hotels
             return await query.ToListAsync();
         }
+        public async Task<int> GetAvailableRoomCountAsync(int hotelId)
+        {
+            var hotel = await _context.HotelDetails.FirstOrDefaultAsync(h => h.HotelId == hotelId);
+            if (hotel == null)
+            {
+                // Handle the scenario where the hotel with the specified ID does not exist
+                // You can return an appropriate response or throw an exception
+                // In this example, we return 404 Not Found status code
+                throw new NotFoundException($"Hotel with ID {hotelId} not found.");
+            }
+
+            int availableRoomCount = hotel.HotelRoomsAvailable;
+            return availableRoomCount;
+        }
+
 
 
     }

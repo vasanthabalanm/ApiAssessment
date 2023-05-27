@@ -284,3 +284,7 @@ D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\runtimes\unix\
 D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\selenium-manager\linux\selenium-manager
+D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\selenium-manager\macos\selenium-manager
+D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\selenium-manager\windows\selenium-manager.exe
+D:\ApiAssessment\ApiAssessment\HotelApi\HotelApi\bin\Debug\net7.0\WebDriver.dll
