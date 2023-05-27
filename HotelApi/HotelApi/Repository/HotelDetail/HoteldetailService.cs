@@ -60,16 +60,6 @@ namespace HotelApi.Repository.HotelDetail
             await _context.SaveChangesAsync();
             return "Deleted done";
         }
-        /*public async Task<List<HotelDetails>> GetHotelLocationDetails(int price)
-         {
-             /* var getdt = await _context.HotelDetails.FirstOrDefaultAsync(hotelid => hotelid.HotelRoomPrice <= price);
-
-              return getdt.HotelLocation;
-             var locat = await(from Getlocate in _context.HotelDetails where Getlocate.HotelRoomPrice < price select Getlocate).ToListAsync();
-             return locat;
-
-
-         }*/
         public async Task<List<HotelDetails>> FilterHotels(string location, decimal minPrice, decimal maxPrice)
         {
             var query = _context.HotelDetails.AsQueryable();
@@ -92,17 +82,12 @@ namespace HotelApi.Repository.HotelDetail
             var hotel = await _context.HotelDetails.FirstOrDefaultAsync(h => h.HotelId == hotelId);
             if (hotel == null)
             {
-                // Handle the scenario where the hotel with the specified ID does not exist
-                // You can return an appropriate response or throw an exception
-                // In this example, we return 404 Not Found status code
                 throw new NotFoundException($"Hotel with ID {hotelId} not found.");
             }
 
             int availableRoomCount = hotel.HotelRoomsAvailable;
             return availableRoomCount;
         }
-
-
 
     }
 }

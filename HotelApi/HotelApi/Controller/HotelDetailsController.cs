@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using HotelApi.Data;
 using HotelApi.Model;
 using HotelApi.Repository.HotelDetail;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApi.Controller
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class HotelDetailsController : ControllerBase
@@ -21,7 +23,7 @@ namespace HotelApi.Controller
         {
             _context = context;
         }
-
+                
         
         // GET: api/HotelDetails
         [HttpGet]
@@ -29,10 +31,11 @@ namespace HotelApi.Controller
         {
             return await _context.GetHotelDetails();
         }
-        
+
 
         // GET: api/HotelDetails/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "owner")]
         public async Task<ActionResult<HotelDetails>> GetHotelDetails(int id)
         {
             try
@@ -46,11 +49,12 @@ namespace HotelApi.Controller
 
             }
         }
-        
+
 
         // PUT: api/HotelDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "owner")]
         public async Task<IActionResult> PutHotelDetails(int id, HotelDetails hotelDetails)
         {
             try
@@ -68,6 +72,8 @@ namespace HotelApi.Controller
         // POST: api/HotelDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "owner")]
+        [Authorize (Roles ="Owner")]
         public async Task<ActionResult<HotelDetails>> PostHotelDetails(HotelDetails hotelDetails)
         {
             try
@@ -84,6 +90,7 @@ namespace HotelApi.Controller
 
         // DELETE: api/HotelDetails/5
         [HttpDelete("{hotelid}")]
+        [Authorize(Roles = "owner")]
         public async Task<ActionResult<string>> DeleteHotelDetails(int hotelid)
         {
             try
@@ -100,30 +107,15 @@ namespace HotelApi.Controller
             }
         }
 
-        /*        
-        //to view the location of the hotel
-        [HttpGet("{price}")]
-        public async Task<ActionResult<List<HotelDetails>>> GetHotelLocationDetails(int price)
-        {
-            try
-            {
-                var getdt = await _context.DeleteHotelDetails(price);
-
-
-                return Ok(getdt);
-            }
-            catch (ArithmeticException ex)
-            {
-                return NotFound(ex.Message);
-
-            }
-        }*/
+        //filter
         [HttpGet("filter")]
         public async Task<IActionResult> FilterHotels([FromQuery] string location, [FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
         {
             var filteredHotels =await  _context.FilterHotels(location,minPrice,maxPrice);
             return Ok(filteredHotels);
         }
+
+        //count the available rooms
         [HttpGet("{hotelId}/count")]
         public async Task<IActionResult> GetAvailableRoomCount(int hotelId)
         {

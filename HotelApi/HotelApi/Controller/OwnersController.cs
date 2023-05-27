@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelApi.AuthUser;
 using HotelApi.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApi.Controller
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class OwnersController : ControllerBase

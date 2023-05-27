@@ -13,9 +13,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApi.Controller
 {
+    
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize (Roles ="staff")]
+    
     public class HotelAdminsController : ControllerBase
     {
         private readonly IAdmins _context;

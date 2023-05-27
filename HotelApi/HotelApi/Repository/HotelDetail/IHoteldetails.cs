@@ -10,7 +10,6 @@ namespace HotelApi.Repository.HotelDetail
         Task<HotelDetails> PutHotelDetails(int id, HotelDetails hotelDetails);
         Task<ActionResult<HotelDetails>> PostHotelDetails(HotelDetails hotelDetails);
         Task<string> DeleteHotelDetails(int id);
-        //Task<List<HotelDetails>> GetHotelLocationDetails(int price);
         Task<List<HotelDetails>> FilterHotels(string location, decimal minPrice, decimal maxPrice);
         Task<int> GetAvailableRoomCountAsync(int hotelId);
     }
